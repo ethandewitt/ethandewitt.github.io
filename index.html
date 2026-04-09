@@ -5,13 +5,25 @@
   <title>Majors</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 
+
+
   
 </head>
 <body>
   <h2>Select a Major</h2>
 
   <button type='button' id='citButton'>CIT Majors</button>
-  <button type='button' id='businessMajor'>Business Majors</button>
+  <button type='button' id='businessMajor'>Business Majors</but ton>
+
+
+  <script id="majorList" type = "text/x-handlebars-template">
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Major</th>    
+      <th>MidTerm</th>
+      <th>Final</th>
+</tr>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -20,7 +32,12 @@
     if (response.ok) {
       var citData = await response.json();
 
-      var citList = 
+      var citList = citData.filter(function(student) {
+        return student.major === "CIT";
+      });
+
+      var source = document.querySelector("majorList).innterHTML;
+      var majorList = HandleBars.compile(source)
 
     
     
