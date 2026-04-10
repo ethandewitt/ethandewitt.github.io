@@ -13,24 +13,35 @@
   <h2>Select a Major</h2>
 
   <button type='button' id='citButton'>CIT Majors</button>
-  <button type='button' id='businessMajor'>Business Majors</button>
+  <button type='button' id='businessButton'>Business Majors</button>
+
+  <div id="result"></div>
 
 
-  <script id="majorList" type = "text/x-handlebars-template">
+  <script id="majorList" type ="text/x-handlebars-template">
   <table>
     <tr>
-      <th>Name</th>
-      <th>Major</th>    
-      <th>MidTerm</th>
-      <th>Final</th>
-</tr>
+      <th>Name</th><th>Major</th><th>MidTerm</th><th>Final</th> 
+  
+    </tr>
+    {{#each students}}
+    <tr>
+      <td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td>
+    
+    {{/each}}
 
-<script>
+  </table>
+  
+    
+  <script>
+  
+    
   document.addEventListener("DOMContentLoaded", function() {
-    var citData = await fetch('cit5students.json');
+    
+  document.querySelector("#citButton").onclick = async function() {
 
-    document.querySelector("citButton").onclick = async function() {
-
+    var response = await fetch('cit5students.json'):
+    
     if (response.ok) {
       var citData = await response.json();
 
@@ -38,24 +49,26 @@
         return student.major === "CIT";
       });
 
-      var source = document.querySelector("majorList).innerHTML;
-      var majorList = HandleBars.compile(source)
-      document.querySelector("result").innerHTML = citList({students: filtered } );
+      var source = document.querySelector("#majorList").innerHTML;
+      var majorList = Handlebars.compile(source)
+      document.querySelector("#result").innerHTML = majorList({students: filtered } );
     };
 
-    document.querySelector("businessButton").onclick = aysnc function() {
+   
+    
+  document.querySelector("businessButton").onclick = async function() {
     var response = await fetch("cit5students.json");
 
     if (response.ok) {
     var data = await response.json();
 
     var businessFilter = data.filter(function(student) {
-      return student.major === "BUS";
+      return student.major === "BUS"; });
 
-    var source = document.querySelector('#majorList").innerHTML;
+    var source = document.querySelector("#majorList").innerHTML;
     var majorList = Handlebars.compile(source);
 
-    documoent.querySelector("result").innerHTML = majorList({students:filtered });
+    document.querySelector("#result").innerHTML = majorList({students:filtered });
     }};
   });
   </script>
