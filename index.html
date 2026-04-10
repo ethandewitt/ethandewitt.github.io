@@ -27,20 +27,25 @@
     {{#each students}}
     <tr>
       <td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td>
+    </tr>
     
     {{/each}}
 
   </table>
   
     
+  </script>
+
+  
+  
+  
   <script>
   
-    
   document.addEventListener("DOMContentLoaded", function() {
     
   document.querySelector("#citButton").onclick = async function() {
 
-    var response = await fetch('cit5students.json'):
+    var response = await fetch('cit5students.json');
     
     if (response.ok) {
       var citData = await response.json();
@@ -51,24 +56,24 @@
 
       var source = document.querySelector("#majorList").innerHTML;
       var majorList = Handlebars.compile(source)
-      document.querySelector("#result").innerHTML = majorList({students: filtered } );
+      document.querySelector("#result").innerHTML = majorList({students: citList } );
     };
 
    
     
-  document.querySelector("businessButton").onclick = async function() {
+  document.querySelector("#businessButton").onclick = async function() {
     var response = await fetch("cit5students.json");
 
     if (response.ok) {
-    var data = await response.json();
+      var data = await response.json();
 
-    var businessFilter = data.filter(function(student) {
+      var businessList = data.filter(function(student) {
       return student.major === "BUS"; });
 
-    var source = document.querySelector("#majorList").innerHTML;
-    var majorList = Handlebars.compile(source);
+      var source = document.querySelector("#majorList").innerHTML;
+      var majorList = Handlebars.compile(source);
 
-    document.querySelector("#result").innerHTML = majorList({students:filtered });
+      document.querySelector("#result").innerHTML = majorList({students:businessList });
     }};
   });
   </script>
